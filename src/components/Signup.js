@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-// import {signup} from '../actions/userActions'
+import {signup} from '../actions/userActions'
 
 function Signup() {
 const [username, setUsername] = useState("")
@@ -11,10 +11,10 @@ const dispatch = useDispatch()
 const history = useHistory()
 const handleOnSubmit = (e) => {
     e.preventDefault()
-    // dispatch(signup({username, email, password}, token))
-    // history.push('/')
+    dispatch(signup({username, email, password}))
+    history.push('/')
 }
-// const token = document.querySelector('meta[name="csrf-token"]').content;
+
     return(
     
         <form onSubmit={handleOnSubmit}>
