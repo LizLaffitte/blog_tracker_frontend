@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import {useSelector, useDispatch} from 'react-redux'
 import Signup from '../components/Signup'
+import Login from '../components/Login'
+// import Dashboard from '../components/Dashboard'
 function AllRoutes() {
 
     return(
@@ -8,6 +9,8 @@ function AllRoutes() {
             <Router>
                 <Switch>
                     <Route exact path='/signup' component={Signup} />
+                    <Route exact path='/login' component={Login} />
+                    {/* <Route exact path='/:username' component={Dashboard} /> */}
                 </Switch>
             </Router>
         </>
