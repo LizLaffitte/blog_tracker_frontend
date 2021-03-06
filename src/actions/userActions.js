@@ -60,7 +60,6 @@ export const signup = credentials => {
 export const login = (credentials, token) => {
     return dispatch => {
         return fetch(baseUrl + '/login',{
-            credentials: 'include',
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -73,8 +72,7 @@ export const login = (credentials, token) => {
             if(userData.error){
                 console.log(userData.error)
             } else {
-                console.log(userData)
-                return userData
+                dispatch(setCurrentUser(userData.data.attributes))
             }
         })
         .catch(console.log())
@@ -82,8 +80,6 @@ export const login = (credentials, token) => {
 }
 
 export const auth = credentials => {
-    let creds = {}
-    creds["auth"] = credentials
     return dispatch => {
         return fetch(baseUrl + '/api/v1/auth',{
             method: "POST",
@@ -97,10 +93,9 @@ export const auth = credentials => {
             if(userData.error){
                 console.log(userData.error)
             } else {
-                console.log(userData)
                 let user_token = userData.jwt
-                login(credentials, user_token)
-                // dispatch(setCurrentUser(userData.data.attributes))
+                localStorage.setItem('token', user_token)
+                dispatch(login(credentials, user_token))
             }
         })
         .catch(errors => {
