@@ -1,5 +1,6 @@
 const baseUrl = 'http://127.0.0.1:8000'
 
+
 export const setCurrentUser = user => {
     return {
         type: "SET_CURRENT_USER",
@@ -72,7 +73,9 @@ export const login = (credentials, token) => {
             if(userData.error){
                 console.log(userData.error)
             } else {
+
                 dispatch(setCurrentUser(userData.data.attributes))
+
             }
         })
         .catch(console.log())
@@ -124,4 +127,26 @@ export const logout = () => {
         })
         .catch(console.log())
     }
+}
+
+export const getCurrentUser = (id) => {
+    return dispatch => {
+        return fetch(baseUrl + `/api/v1/users/${id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem('token')}`,
+            }
+        })
+        .then(response => response.json())
+        .then(userData => {
+            if(userData.errors){
+                console.log(userData.errors)
+            } else {
+                document.cookie = `user=${userData.data.attributes.id}`
+                dispatch(setCurrentUser(userData.data.attributes))
+            }
+        })
+    }
+
 }
