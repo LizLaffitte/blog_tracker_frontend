@@ -3,10 +3,8 @@ import {useSelector} from "react-redux";
 import {Link} from 'react-router-dom';
 
 function Profile(){
-    
     const user = useSelector(state => state.user)
-    const token = useSelector(state => state.token)
-    if(user){
+    if(!user){
         console.log(user.username)
     }
     return(
