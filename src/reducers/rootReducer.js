@@ -2,8 +2,9 @@ import { combineReducers } from 'redux'
 // import userReducer from './userReducer'
 import currentUser from './currentUser'
 const rootReducer = combineReducers({
-    // users: userReducer,
-    currentUser
+    token: localStorage.getItem("token"),
+    currentUser,
+    user: currentUser
 })
 
 export default rootReducer
