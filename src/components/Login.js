@@ -11,7 +11,7 @@ function Login() {
     const handleOnSubmit = (e) => {
         e.preventDefault()
         dispatch(auth({username, password}))  
-        // history.push('/:username')    
+        history.push(`/${username}`)    
     }
 
     return(
