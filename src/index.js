@@ -5,14 +5,17 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from './reducers/rootReducer'
 import { composeWithDevTools } from 'redux-devtools-extension';
+import {CookiesProvider} from 'react-cookie'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 ReactDOM.render(
-  <Provider store={store}> 
-    <App />
-  </Provider>,
+  <CookiesProvider>
+    <Provider store={store}> 
+      <App />
+    </Provider>
+  </CookiesProvider>,
   document.getElementById('root')
 );
 
