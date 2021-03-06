@@ -7,16 +7,18 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useCookies} from 'react-cookie';
 import {getCurrentUser} from '../actions/userActions'
 function AllRoutes() {
-    const current_user = useSelector(state => state.user)
+    const current_user = useSelector(state => state.currentUser)
     const [cookies, setCookie] = useCookies(['user']);
     const dispatch = useDispatch()
     useEffect(()=>{
-        if(current_user && cookies.user == "undefined"){
+        console.log("useeffect")
+        if(current_user && cookies['user'] == "undefined"){
             setCookie('user', current_user.id,  {path: '/'})
-        } else if(cookies.user != "undefined") {
+        } else if(!current_user && cookies.user != "undefined") {
             dispatch(getCurrentUser(cookies.user))
+            console.log(cookies.user)
         }
-    }, [current_user] )
+    }, [current_user])
     return(
         <>
             <Router>
